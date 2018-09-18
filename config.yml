@@ -1,0 +1,42 @@
+admin:
+  port: 9990
+  ip: 0.0.0.0
+
+routers: 
+  # http 2: service -> linkerd -> [linkerd] -> service should lookup local 
+  # service then filter down to local node
+  - label: h2-in
+    protocol: h2
+    experimental: true
+    client:
+      initialStreamWindowBytes: 1048576
+#      maxFrameBytes: 4194304
+      failureAccrual:
+        kind: none
+#      hostConnectionPool:
+#        minSize: 8
+    service: 
+#      responseClassifier: 
+#        kind: io.l5d.h2.allSuccessful
+#      classificationTimeoutMs: 0
+#      retryBufferSize:
+#        requestBytes: 0
+#        responseBytes: 0
+    servers:
+      - port: 4143
+        ip: 0.0.0.0
+        maxConcurrentStreamsPerConnection: 2147483647
+        initialStreamWindowBytes: 1048576
+ #       maxFrameBytes: 4194304
+    dtab: |
+       /svc/echo.EchoService => /$/inet/127.0.0.1/9999;
+    identifier:
+      kind: io.l5d.header.path
+      segments: 1
+#    interpreter:
+#      kind: io.l5d.mesh
+#      experimental: true
+#      dst: /#/io.l5d.consul/.local/namerd-grpc
+#      root: /h2
+#      transformers:
+#        - kind: io.l5d.localhost

@@ -1,0 +1,21 @@
+.idea
+*.ipr
+*.iws
+
+*.class
+*.log
+
+# sbt specific
+target
+lib_managed/
+src_managed/
+
+.settings/
+
+server.crt
+server.key
+
+startup.sh
+Dockerfile
+
+.env

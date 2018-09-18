@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package echo;
+
+option java_package = "com.bigcommerce.echo";
+
+service EchoService {
+  rpc Echo(EchoReq) returns (EchoResp);
+}
+
+message EchoReq {
+    string message = 1;
+}
+
+message EchoResp {
+    string message = 1;
+}

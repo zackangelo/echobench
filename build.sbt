@@ -37,13 +37,14 @@ lazy val echobench = Project(id = "echobench", base = file("."))
     )
   )
   .settings(
-    assemblyJarName in assembly := "echobench.jar",
-    mainClass in reStart := Some("com.bigcommerce.echobench.EchoClient"),
+    assemblyJarName in assembly := "deadliner.jar",
+    mainClass in reStart := Some("com.bigcommerce.deadliner.DeadlinerClient"),
     reStartArgs := Seq(
       "127.0.0.1", //target host
-      "9999", //target port
+      "4142", //target port
       "100", //num threads
-      "5000" //num requests
+      Integer.MAX_VALUE.toString(), //num requests
+      "10" //deadline
     ),
     javaOptions in reStart := Seq(
       "-Djava.util.logging.config.file=logging.properties",
